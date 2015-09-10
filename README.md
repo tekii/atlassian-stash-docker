@@ -1,0 +1,1 @@
+# atlassian-stash-docker

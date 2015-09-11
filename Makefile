@@ -8,7 +8,7 @@ ORIGINAL_INSTALL:=original
 PATCHED_INSTALL:=patched
 STASH_HOME:=/var/atlassian/application-data/stash
 STASH_INSTALL:=/opt/atlassian/stash
-DOCKER_TAG:=tekii/stash
+DOCKER_TAG:=tekii/atlassian-stash
 RUN_USER:=daemon
 RUN_GROUP:=daemon
 

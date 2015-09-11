@@ -1,0 +1,11 @@
+Makefile
+Dockerfile.m4
+.gitignore
+.git
+*.md
+*.tar.gz
+*.template
+*.yaml
+original
+patched
+volume

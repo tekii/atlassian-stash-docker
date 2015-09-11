@@ -1,0 +1,49 @@
+diff -ruN -p1 original/bin/setenv.sh patched/bin/setenv.sh
+--- original/bin/setenv.sh	2015-08-14 00:26:24.000000000 -0300
++++ patched/bin/setenv.sh	2015-09-11 11:59:25.971443817 -0300
+@@ -49,3 +49,3 @@ JVM_REQUIRED_ARGS="-Djava.awt.headless=t
+ #
+-# umask 0027
++umask 0027
+ 
+diff -ruN -p1 original/bin/user.sh patched/bin/user.sh
+--- original/bin/user.sh	2015-08-14 00:26:24.000000000 -0300
++++ patched/bin/user.sh	2015-09-11 12:44:08.293679688 -0300
+@@ -1,3 +1,3 @@
+ # START INSTALLER MAGIC ! DO NOT EDIT !
+-STASH_USER="" ##
++STASH_USER="daemon" ##
+ # END INSTALLER MAGIC ! DO NOT EDIT !
+diff -ruN -p1 original/conf/server.xml patched/conf/server.xml
+--- original/conf/server.xml	2015-08-14 00:26:24.000000000 -0300
++++ patched/conf/server.xml	2015-09-11 13:54:42.320532386 -0300
+@@ -75,4 +75,23 @@
+                    compression="on"
+-                   compressableMimeType="text/html,text/xml,text/plain,text/css,application/json,application/javascript,application/x-javascript" />
++                   compressableMimeType="text/html,text/xml,text/plain,text/css,application/json,application/javascript,application/x-javascript"
++                   maxThreads="25"
++                   minSpareThreads="25"/>
+ 
++        <!-- A "Connector" for the https proxy -->
++        <!-- disableUploadTimeout="true"
++        -->
++        <Connector port="7991"
++                   protocol="HTTP/1.1"
++                   connectionTimeout="20000"
++                   useBodyEncodingForURI="true"
++                   enableLookups="false"
++                   maxHttpHeaderSize="8192"
++                   redirectPort="443"
++                   acceptCount="100"
++                   scheme="https"
++                   proxyPort="443"
++                   secure="true"
++                   maxThreads="50"
++                   minSpareThreads="25"/>  
++  
+         <!-- A "Connector" using the shared thread pool-->
+@@ -136,3 +155,3 @@
+                 <Context docBase="${catalina.home}/atlassian-stash"
+-                         path=""
++                         path="${tekii.contextPath}"
+                          reloadable="false"

@@ -1,0 +1,7 @@
+atlassian-*.tar.gz
+*~
+#*
+.#*
+patched
+original
+volume

@@ -1,7 +1,7 @@
 #
 # STASH Dockerfile
 # 
-FROM tekii/debian-server-jre
+FROM tekii/server-jre
 
 MAINTAINER Pablo Jorge Eduardo Rodriguez <pr@tekii.com.ar>
 
@@ -11,7 +11,9 @@ COPY config.patch __INSTALL__/
 
 RUN apt-get update && \
     apt-get install --assume-yes --no-install-recommends git wget patch ca-certificates && \
-    wget -q -O - __DOWNLOAD_URL__ | tar -xz --strip=1 -C __INSTALL__ && \
+    echo "start downloading and decompressing __LOCATION__/__TARBALL__" && \
+    wget -q -O - __LOCATION__/__TARBALL__ | tar -xz --strip=1 -C __INSTALL__ && \
+    echo "end downloading and decompressing." && \
     cd __INSTALL__ && patch -p1 -i config.patch && cd - && \
     mkdir --parents __INSTALL__/conf/Catalina && \
     chmod --recursive 700 __INSTALL__/conf/Catalina && \
@@ -37,7 +39,6 @@ RUN ${JAVA_HOME}/bin/keytool -keystore ${JAVA_HOME}/jre/lib/security/cacerts -im
 ENV STASH_HOME=__HOME__
 # override by conf/bin/user.sh
 ENV STASH_USER=__USER__
-
 # default value for the tomcat contextPath, to be override by kubernetes
 ENV CATALINA_OPTS="-Dtekii.contextPath="
 #

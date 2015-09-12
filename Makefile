@@ -27,7 +27,6 @@ M4_FLAGS= -P \
 
 $(TARBALL):
 	wget $(LOCATION)/$(TARBALL)
-#	md5sum --check $(JDK_TARBALL).md5
 
 $(STASH_PATCHED_DIST): $(STASH_TARBALL) config.patch
 	mkdir -p $@
@@ -54,11 +53,6 @@ PHONY+= run
 run: #image
 	docker run -p 7990:7990 -p 7991:7991 -p 7999:7999 -e "CATALINA_OPTS=-Dtekii.contextPath=/stash" -v $(shell pwd)/volume:$(STASH_HOME) $(DOCKER_TAG)
 
-
-PHONY+= push-to-docker
-push-to-docker: image
-	docker push $(DOCKER_TAG)
-
 PHONY += push-to-google
 push-to-google: image
 	docker tag $(DOCKER_TAG) gcr.io/mrg-teky/jira:$(STASH_VERSION)
@@ -66,15 +60,14 @@ push-to-google: image
 
 PHONY += clean
 clean:
-	rm -rf $(STASH_ROOT)
-	rm -f Dokerfile	
+	rm -rf $(ORIGINAL_INSTALL) $(PATCHED_INSTALL)
 
 PHONY += realclean
 realclean: clean
-	rm -f $(STASH_TARBALL)
+	rm -f $(TARBALL)
 
 PHONY += all
-all: $(JDK_TARBALL)
+all: Dockerfile
 
 .PHONY: $(PHONY)
 .DEFAULT_GOAL := all

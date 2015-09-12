@@ -8,7 +8,7 @@ ORIGINAL_INSTALL:=original
 PATCHED_INSTALL:=patched
 STASH_HOME:=/var/atlassian/application-data/stash
 STASH_INSTALL:=/opt/atlassian/stash
-DOCKER_TAG:=tekii/atlassian-stash
+TAG:=tekii/atlassian-stash
 RUN_USER:=daemon
 RUN_GROUP:=daemon
 
@@ -19,16 +19,17 @@ RUN_GROUP:=daemon
 M4= $(shell which m4)
 M4_FLAGS= -P \
 	-D __VERSION__=$(STASH_VERSION) \
-	-D __DOWNLOAD_URL__=$(LOCATION)/$(TARBALL) \
+	-D __LOCATION__=$(LOCATION) \
+	-D __TARBALL__=$(TARBALL) \
 	-D __INSTALL__=$(STASH_INSTALL) \
 	-D __HOME__=$(STASH_HOME) \
 	-D __USER__=$(RUN_USER) -D __GROUP__=$(RUN_GROUP) \
-	-D __DOCKER_TAG__=$(DOCKER_TAG)
+	-D __TAG__=$(TAG)
 
 $(TARBALL):
 	wget $(LOCATION)/$(TARBALL)
 
-$(STASH_PATCHED_DIST): $(STASH_TARBALL) config.patch
+$(PATCHED_DIST): $(STASH_TARBALL) config.patch
 	mkdir -p $@
 	tar zxvf $(STASH_TARBALL) -C $@ --strip-components=1
 	patch -p0 -i config.patch
@@ -36,7 +37,6 @@ $(STASH_PATCHED_DIST): $(STASH_TARBALL) config.patch
 #.SECONDARY
 Dockerfile: Dockerfile.m4 Makefile
 	$(M4) $(M4_FLAGS) $< >$@
-
 
 PHONY += update-patch
 update-patch:
@@ -47,16 +47,16 @@ update-patch:
 
 PHONY += image
 image: Dockerfile config.patch
-	docker build -t $(DOCKER_TAG) .
+	docker build -t $(TAG) .
 
 PHONY+= run
 run: #image
-	docker run -p 7990:7990 -p 7991:7991 -p 7999:7999 -e "CATALINA_OPTS=-Dtekii.contextPath=/stash" -v $(shell pwd)/volume:$(STASH_HOME) $(DOCKER_TAG)
+	docker run -p 7990:7990 -p 7991:7991 -p 7999:7999 -e "CATALINA_OPTS=-Dtekii.contextPath=/stash" -v $(shell pwd)/volume:$(STASH_HOME) $(TAG)
 
 PHONY += push-to-google
 push-to-google: image
-	docker tag $(DOCKER_TAG) gcr.io/mrg-teky/jira:$(STASH_VERSION)
-	gcloud docker push gcr.io/mrg-teky/jira:$(STASH_VERSION)
+	docker tag $(TAG) gcr.io/mrg-teky/atlassian-stash
+	gcloud docker push gcr.io/mrg-teky/atlassian-stash
 
 PHONY += clean
 clean:

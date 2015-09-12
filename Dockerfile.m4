@@ -21,10 +21,17 @@ RUN apt-get update && \
     chown --recursive __USER__:__GROUP__ __INSTALL__/logs && \
     chown --recursive __USER__:__GROUP__ __INSTALL__/temp && \
     chown --recursive __USER__:__GROUP__ __INSTALL__/work && \
-    chown --recursive __USER__:__GROUP__ __INSTALL__/conf && \    
+    chown --recursive __USER__:__GROUP__ __INSTALL__/conf && \
     apt-get purge --assume-yes wget patch && \
     apt-get clean autoclean && \
     rm -rf /var/lib/{apt,dpkg,cache,log}/
+
+# adds self signed ca, ***FOR TEKII INTERNAL USE ONLY***, use
+# tekii/atlassian-stash instead
+COPY ca_??_tekii_com_ar.pem __INSTALL__/
+RUN ${JAVA_HOME}/bin/keytool -keystore ${JAVA_HOME}/jre/lib/security/cacerts -importcert -alias tekii_ca_01 -file __INSTALL__/ca_01_tekii_com_ar.pem -storepass changeit -noprompt && \
+    ${JAVA_HOME}/bin/keytool -keystore ${JAVA_HOME}/jre/lib/security/cacerts -importcert -alias tekii_ca_03 -file __INSTALL__/ca_03_tekii_com_ar.pem -storepass changeit -noprompt && \
+    rm  __INSTALL__/ca_??_tekii_com_ar.pem
 
 #
 ENV STASH_HOME=__HOME__
@@ -47,6 +54,6 @@ EXPOSE 7991
 EXPOSE 7999
 #
 USER __USER__:__GROUP__
-
+#
 ENTRYPOINT ["__INSTALL__/bin/start-stash.sh", "-fg"]
 

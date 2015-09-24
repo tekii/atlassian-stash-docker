@@ -31,8 +31,11 @@ RUN apt-get update && \
 # adds self signed ca, ***FOR TEKII INTERNAL USE ONLY***, use
 # tekii/atlassian-stash instead
 COPY ca_??_tekii_com_ar.pem __INSTALL__/
+COPY DigiCertCA.crt __INSTALL__/
+
 RUN ${JAVA_HOME}/bin/keytool -keystore ${JAVA_HOME}/jre/lib/security/cacerts -importcert -alias tekii_ca_01 -file __INSTALL__/ca_01_tekii_com_ar.pem -storepass changeit -noprompt && \
     ${JAVA_HOME}/bin/keytool -keystore ${JAVA_HOME}/jre/lib/security/cacerts -importcert -alias tekii_ca_03 -file __INSTALL__/ca_03_tekii_com_ar.pem -storepass changeit -noprompt && \
+    ${JAVA_HOME}/bin/keytool -keystore ${JAVA_HOME}/jre/lib/security/cacerts -importcert -alias digicert_ca -file __INSTALL__/DigiCertCA.crt -storepass changeit -noprompt && \
     rm  __INSTALL__/ca_??_tekii_com_ar.pem
 
 #

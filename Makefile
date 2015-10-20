@@ -1,8 +1,8 @@
 ##
-## STASH 
+## STASH
 ##
-STASH_VERSION:=3.11.2
-TARBALL:=atlassian-stash-$(STASH_VERSION).tar.gz
+STASH_VERSION:=4.0.2
+TARBALL:=atlassian-bitbucket-$(STASH_VERSION).tar.gz
 LOCATION:=https://www.atlassian.com/software/stash/downloads/binary
 ORIGINAL_INSTALL:=original
 PATCHED_INSTALL:=patched
@@ -29,9 +29,13 @@ M4_FLAGS= -P \
 $(TARBALL):
 	wget $(LOCATION)/$(TARBALL)
 
-$(PATCHED_DIST): $(STASH_TARBALL) config.patch
+$(ORIGINAL_INSTALL): $(TARBALL)
 	mkdir -p $@
-	tar zxvf $(STASH_TARBALL) -C $@ --strip-components=1
+	tar zxvf $(TARBALL) -C $@ --strip-components=1
+
+$(PATCHED_INSTALL): $(TARBALL) config.patch
+	mkdir -p $@
+	tar zxvf $(TARBALL) -C $@ --strip-components=1
 	patch -p0 -i config.patch
 
 #.SECONDARY

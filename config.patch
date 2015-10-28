@@ -21,13 +21,13 @@ diff -ruN -p1 original/bin/user.sh patched/bin/user.sh
  # END INSTALLER MAGIC ! DO NOT EDIT !
 diff -ruN -p1 original/conf/server.xml patched/conf/server.xml
 --- original/conf/server.xml	2015-10-02 00:57:16.000000000 -0300
-+++ patched/conf/server.xml	2015-10-20 11:44:56.307158539 -0300
++++ patched/conf/server.xml	2015-10-28 12:27:05.125957242 -0300
 @@ -75,3 +75,22 @@
                     compression="on"
 -                   compressableMimeType="text/html,text/xml,text/plain,text/css,application/json,application/javascript,application/x-javascript" />
 +                   compressableMimeType="text/html,text/xml,text/plain,text/css,application/json,application/javascript,application/x-javascript"
-+                   maxThreads="25"
-+                   minSpareThreads="25"/>
++                   maxThreads="10"
++                   minSpareThreads="10"/>
 +
 +        <!-- A "Connector" for the https proxy -->
 +        <!-- disableUploadTimeout="true"
@@ -43,7 +43,7 @@ diff -ruN -p1 original/conf/server.xml patched/conf/server.xml
 +                   scheme="https"
 +                   proxyPort="443"
 +                   secure="true"
-+                   maxThreads="50"
++                   maxThreads="25"
 +                   minSpareThreads="25"/>
  
 @@ -136,3 +155,3 @@

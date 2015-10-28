@@ -12,7 +12,6 @@ TAG:=tekii/atlassian-stash
 RUN_USER:=daemon
 RUN_GROUP:=daemon
 
-
 ##
 ## M4
 ##
@@ -61,6 +60,16 @@ PHONY += push-to-google
 push-to-google: image
 	docker tag $(TAG) gcr.io/mrg-teky/atlassian-stash
 	gcloud docker push gcr.io/mrg-teky/atlassian-stash
+
+PHONY += git-tag git-push
+git-tag:
+	-git tag -d $(STASH_VERSION)
+	git tag $(STASH_VERSION)
+
+git-push:
+	-git push origin :refs/tags/$(STASH_VERSION)
+	git push origin
+	git push --tags origin
 
 PHONY += clean
 clean:

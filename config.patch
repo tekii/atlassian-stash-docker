@@ -5,20 +5,12 @@ diff -ruN -p1 original/bin/setenv.sh patched/bin/setenv.sh
  JVM_MINIMUM_MEMORY="512m"
 -JVM_MAXIMUM_MEMORY="768m"
 +JVM_MAXIMUM_MEMORY="512m"
- 
+
 @@ -64,3 +64,3 @@ JVM_REQUIRED_ARGS="-Djava.awt.headless=t
  #
 -# umask 0027
 +umask 0027
- 
-diff -ruN -p1 original/bin/user.sh patched/bin/user.sh
---- original/bin/user.sh	2015-10-02 00:57:16.000000000 -0300
-+++ patched/bin/user.sh	2015-10-20 11:44:56.307158539 -0300
-@@ -1,3 +1,3 @@
- # START INSTALLER MAGIC ! DO NOT EDIT !
--BITBUCKET_USER="" ##
-+BITBUCKET_USER="daemon" ##
- # END INSTALLER MAGIC ! DO NOT EDIT !
+
 diff -ruN -p1 original/conf/server.xml patched/conf/server.xml
 --- original/conf/server.xml	2015-10-02 00:57:16.000000000 -0300
 +++ patched/conf/server.xml	2015-10-28 12:27:05.125957242 -0300
@@ -45,7 +37,7 @@ diff -ruN -p1 original/conf/server.xml patched/conf/server.xml
 +                   secure="true"
 +                   maxThreads="25"
 +                   minSpareThreads="25"/>
- 
+
 @@ -136,3 +155,3 @@
                  <Context docBase="${catalina.home}/atlassian-bitbucket"
 -                         path=""

@@ -5,14 +5,14 @@ FROM tekii/server-jre
 
 MAINTAINER Pablo Jorge Eduardo Rodriguez <pr@tekii.com.ar>
 
-LABEL version=4.5.1
+LABEL version=4.8.3
 
 COPY config.patch /opt/atlassian/stash/
 
 RUN apt-get update && \
     apt-get install --assume-yes --no-install-recommends wget patch && \
-    echo "start downloading and decompressing https://www.atlassian.com/software/stash/downloads/binary/atlassian-bitbucket-4.5.1.tar.gz" && \
-    wget -q -O - https://www.atlassian.com/software/stash/downloads/binary/atlassian-bitbucket-4.5.1.tar.gz | tar -xz --strip=1 -C /opt/atlassian/stash && \
+    echo "start downloading and decompressing https://www.atlassian.com/software/stash/downloads/binary/atlassian-bitbucket-4.8.3.tar.gz" && \
+    wget -q -O - https://www.atlassian.com/software/stash/downloads/binary/atlassian-bitbucket-4.8.3.tar.gz | tar -xz --strip=1 -C /opt/atlassian/stash && \
     echo "end downloading and decompressing." && \
     cd /opt/atlassian/stash && patch -p1 -i config.patch && cd - && \
     mkdir --parents /opt/atlassian/stash/conf/Catalina && \

@@ -1,7 +1,7 @@
 ##
 ## STASH
 ##
-STASH_VERSION:=4.10.0
+STASH_VERSION:=4.13.0
 TARBALL:=atlassian-bitbucket-$(STASH_VERSION).tar.gz
 LOCATION:=https://www.atlassian.com/software/stash/downloads/binary
 ORIGINAL_INSTALL:=original

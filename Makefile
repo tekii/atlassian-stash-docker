@@ -62,11 +62,11 @@ run: #image
 
 PHONY += git-tag git-push
 git-tag:
-	-git tag -d $(BITBUCKET_VERSION)
-	git tag $(BITBUCKET_VERSION)
+	-git tag -d gcr-$(BITBUCKET_VERSION)
+	git tag gcr-$(BITBUCKET_VERSION)
 
 git-push:
-	-git push origin :refs/tags/$(BITBUCKET_VERSION)
+	-git push origin :refs/tags/gcr-$(BITBUCKET_VERSION)
 	git push origin
 	git push --tags origin
 

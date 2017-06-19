@@ -1,7 +1,7 @@
 #
 # BITBUCKET Dockerfile
 #
-FROM tekii/server-jre
+FROM gcr.io/mrg-teky/jre
 
 MAINTAINER Pablo Jorge Eduardo Rodriguez <pr@tekii.com.ar>
 
@@ -24,7 +24,7 @@ RUN apt-get update && \
     chown --recursive daemon:daemon /opt/atlassian/stash/temp && \
     chown --recursive daemon:daemon /opt/atlassian/stash/work && \
     chown --recursive daemon:daemon /opt/atlassian/stash/conf && \
-    apt-get -t wheezy-backports install git-core --assume-yes --no-install-recommends && \
+    apt-get install git-core --assume-yes --no-install-recommends && \
     apt-get purge --assume-yes wget patch && \
     apt-get clean autoclean && \
     rm -rf /var/lib/{apt,dpkg,cache,log}/

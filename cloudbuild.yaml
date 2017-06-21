@@ -1,5 +1,5 @@
 steps:
 - name: 'gcr.io/cloud-builders/docker'
-  args: ['build', '--no-cache', '--tag', 'gcr.io/$PROJECT_ID/bitbucket', '--tag', 'gcr.io/$PROJECT_ID/bitbucket:4.13.0', '.']
+  args: ['build', '--no-cache', '--tag', 'gcr.io/$PROJECT_ID/bitbucket', '--tag', 'gcr.io/$PROJECT_ID/bitbucket:4.14.6', '.']
 
 images: ['gcr.io/$PROJECT_ID/bitbucket']

@@ -6,6 +6,6 @@ Dockerfile.m4
 *.tar.gz
 *.template
 *.yaml
-original
+original*
 patched*
 volume

@@ -1,11 +1,11 @@
 ##
 ## BITBUCKET
 ##
-BITBUCKET_VERSION:=4.13.0
+BITBUCKET_VERSION:=4.14.6
 TARBALL:=atlassian-bitbucket-$(BITBUCKET_VERSION).tar.gz
 LOCATION:=https://www.atlassian.com/software/stash/downloads/binary
-ORIGINAL_INSTALL:=original
-PATCHED_INSTALL:=patched
+ORIGINAL_INSTALL:=original-$(BITBUCKET_VERSION)
+PATCHED_INSTALL:=patched-$(BITBUCKET_VERSION)
 STASH_HOME:=/var/atlassian/application-data/stash
 STASH_INSTALL:=/opt/atlassian/stash
 TAG:=gcr.io/mrg-teky/atlassian-bitbucket

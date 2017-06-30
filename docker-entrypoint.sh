@@ -20,7 +20,7 @@ trap _sigterm SIGTERM
 
 echo "ENTRYPOINT: starting server in foreground."
 
-${START} -fg --no-search &
+${START} -fg &
 
 pid=$!
 

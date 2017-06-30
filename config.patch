@@ -1,45 +1,13 @@
-diff -ruN -p1 original/bin/setenv.sh patched/bin/setenv.sh
---- original/bin/setenv.sh	2015-10-02 00:57:16.000000000 -0300
-+++ patched/bin/setenv.sh	2015-10-20 12:31:25.078995130 -0300
-@@ -48,3 +48,3 @@ JVM_SUPPORT_RECOMMENDED_ARGS=""
- JVM_MINIMUM_MEMORY="512m"
--JVM_MAXIMUM_MEMORY="768m"
-+JVM_MAXIMUM_MEMORY="512m"
-
-@@ -64,3 +64,3 @@ JVM_REQUIRED_ARGS="-Djava.awt.headless=t
+diff -ruN -p1 original-5.1.0/bin/_start-webapp.sh patched-5.1.0/bin/_start-webapp.sh
+--- original-5.1.0/bin/_start-webapp.sh	2017-06-05 05:11:02.000000000 -0300
++++ patched-5.1.0/bin/_start-webapp.sh	2017-06-22 16:37:35.379348698 -0300
+@@ -28,3 +28,3 @@ fi
  #
 -# umask 0027
 +umask 0027
-
-diff -ruN -p1 original/conf/server.xml patched/conf/server.xml
---- original/conf/server.xml	2015-10-02 00:57:16.000000000 -0300
-+++ patched/conf/server.xml	2015-10-28 12:27:05.125957242 -0300
-@@ -75,3 +75,22 @@
-                    compression="on"
--                   compressableMimeType="text/html,text/xml,text/plain,text/css,application/json,application/javascript,application/x-javascript" />
-+                   compressableMimeType="text/html,text/xml,text/plain,text/css,application/json,application/javascript,application/x-javascript"
-+                   maxThreads="10"
-+                   minSpareThreads="10"/>
-+
-+        <!-- A "Connector" for the https proxy -->
-+        <!-- disableUploadTimeout="true"
-+        -->
-+        <Connector port="7991"
-+                   protocol="HTTP/1.1"
-+                   connectionTimeout="20000"
-+                   useBodyEncodingForURI="true"
-+                   enableLookups="false"
-+                   maxHttpHeaderSize="8192"
-+                   redirectPort="443"
-+                   acceptCount="100"
-+                   scheme="https"
-+                   proxyPort="443"
-+                   secure="true"
-+                   maxThreads="25"
-+                   minSpareThreads="25"/>
-
-@@ -136,3 +155,3 @@
-                 <Context docBase="${catalina.home}/atlassian-bitbucket"
--                         path=""
-+                         path="${tekii.contextPath}"
-                          reloadable="false"
+ 
+@@ -113,2 +113,2 @@ else
+     fi
+-fi
+\ No newline at end of file
++fi

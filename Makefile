@@ -1,7 +1,7 @@
 ##
 ## BITBUCKET
 ##
-BITBUCKET_VERSION:=4.14.6
+BITBUCKET_VERSION:=5.1.0
 TARBALL:=atlassian-bitbucket-$(BITBUCKET_VERSION).tar.gz
 LOCATION:=https://www.atlassian.com/software/stash/downloads/binary
 ORIGINAL_INSTALL:=original-$(BITBUCKET_VERSION)
@@ -35,7 +35,7 @@ $(ORIGINAL_INSTALL): $(TARBALL)
 $(PATCHED_INSTALL): $(TARBALL) config.patch
 	mkdir -p $@
 	tar zxvf $(TARBALL) -C $@ --strip-components=1
-	patch -p0 -i config.patch
+	#patch -p0 -i config.patch
 
 #.SECONDARY
 Dockerfile: Dockerfile.m4 Makefile
@@ -52,12 +52,12 @@ update-patch:
 	diff -ruN -p1 $(ORIGINAL_INSTALL)/ $(PATCHED_INSTALL)/ > config.patch; [ $$? -eq 1 ]
 
 PHONY += image
-image: Dockerfile config.patch
+image: Dockerfile config.patch $(TARBALL)
 	docker build --no-cache=false --rm=true --tag $(TAG):$(BITBUCKET_VERSION) .
 
 PHONY+= run
 run: #image
-	docker run -p 7990:7990 -p 7991:7991 -p 7999:7999 -e "CATALINA_OPTS=-Dtekii.contextPath=/stash" -v $(shell pwd)/volume:$(STASH_HOME) $(TAG):$(BITBUCKET_VERSION)
+	docker run -p 7990:7990 -p 7991:7991 -p 7999:7999 -e " JAVA_OPTS=-Datlassian.plugins.enable.wait=300 -DcatalinaConnectorProxyName=tekii.com.ar -DcatalinaConnectorProxyPort=443 -DcatalinaConnectorScheme=https -DcatalinaConnectorSecure=true -DcatalinaContextPath=/stash -DcatalinaConnectorPort=7991" -e "CATALINA_OPTS=-Dtekii.contextPath=/stash" -v $(shell pwd)/volume:$(STASH_HOME) $(TAG):$(BITBUCKET_VERSION)
 
 
 PHONY += git-tag git-push

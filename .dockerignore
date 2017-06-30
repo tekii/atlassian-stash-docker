@@ -8,4 +8,5 @@ Dockerfile.m4
 *.yaml
 original*
 patched*
-volume
+volume*
+bitbucket.properties

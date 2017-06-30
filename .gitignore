@@ -4,4 +4,4 @@ atlassian-*.tar.gz
 .#*
 patched*
 original*
-volume
+volume*

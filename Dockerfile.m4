@@ -31,7 +31,7 @@ ENV BITBUCKET_INSTALL_DIR=__INSTALL__
 # override by conf/bin/user.sh
 ENV BITBUCKET_USER=__USER__
 # default value for the tomcat contextPath, to be override by kubernetes
-ENV CATALINA_OPTS="-Dtekii.contextPath="
+m4_dnl ENV CATALINA_OPTS="-Dtekii.contextPath="
 #
 ENV JAVA_OPTS="-Datlassian.plugins.enable.wait=300"
 m4_dnl ENV SERVER_SECURE=true

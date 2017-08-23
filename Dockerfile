@@ -5,7 +5,7 @@ FROM gcr.io/mrg-teky/jre
 
 MAINTAINER Pablo Jorge Eduardo Rodriguez <pr@tekii.com.ar>
 
-LABEL version=5.1.2
+LABEL version=5.3.0
 
 COPY config.patch /opt/atlassian/stash/
 COPY docker-entrypoint.sh /opt/atlassian/stash/bin/
@@ -13,8 +13,8 @@ COPY docker-entrypoint.sh /opt/atlassian/stash/bin/
 RUN echo "deb http://ftp.debian.org/debian jessie-backports main" >> /etc/apt/sources.list.d/backports.list && \
     apt-get update && \
     apt-get install --assume-yes --no-install-recommends wget patch && \
-    echo "start downloading and decompressing https://www.atlassian.com/software/stash/downloads/binary/atlassian-bitbucket-5.1.2.tar.gz" && \
-    wget -q -O - https://www.atlassian.com/software/stash/downloads/binary/atlassian-bitbucket-5.1.2.tar.gz | tar -xz --strip=1 -C /opt/atlassian/stash && \
+    echo "start downloading and decompressing https://www.atlassian.com/software/stash/downloads/binary/atlassian-bitbucket-5.3.0.tar.gz" && \
+    wget -q -O - https://www.atlassian.com/software/stash/downloads/binary/atlassian-bitbucket-5.3.0.tar.gz | tar -xz --strip=1 -C /opt/atlassian/stash && \
     echo "end downloading and decompressing." && \
     cd /opt/atlassian/stash && patch -p1 -i config.patch && cd - && \
     chmod --recursive 700 /opt/atlassian/stash/ && \

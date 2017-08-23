@@ -1,7 +1,7 @@
 ##
 ## BITBUCKET
 ##
-BITBUCKET_VERSION:=5.1.2
+BITBUCKET_VERSION:=5.3.0
 TARBALL:=atlassian-bitbucket-$(BITBUCKET_VERSION).tar.gz
 LOCATION:=https://www.atlassian.com/software/stash/downloads/binary
 ORIGINAL_INSTALL:=original-$(BITBUCKET_VERSION)
